@@ -1,8 +1,8 @@
-#/usr/bin/env python3
+# /usr/bin/env python3
 '''
 此程序用于将ebird的观察数据转换为中国观鸟记录中心可以接受的数据格式。
 参考：https://mp.weixin.qq.com/s/i17984F6CRl2v_g7fcmu5g
-Version 0.2
+Version 0.3
 by ljk5403
 '''
 
@@ -19,23 +19,31 @@ referanceDf = pd.read_excel(referance)
 def transformer(filename):
     df = pd.read_csv(filename)
     print("处理文件：" + filename)
-    #截取前两列，并重命名使其符合格式要求
+    # 截取前两列，并重命名使其符合格式要求
     df = df[[df.columns[0], df.columns[1]]]
     # 或：df = df.filter([df.columns[0], df.columns[1]], axis=1)
     df = df.rename(columns={df.columns[0]: '中文名', df.columns[1]: '数量'})
-    #完善物种名 TODO:分别通过拉丁名和物种名搜索，无法检出的抛出异常
+    # 完善物种名 TODO:分别通过拉丁名和物种名搜索，无法检出的抛出异常
     successSign = 1
     for i in range(0, len(df)):
-        pattern1 = re.compile(r'[(](.*?)[)]')
-        latinName = re.findall(pattern1, df.iloc[i]['中文名'])
-        chineseName = referanceDf[referanceDf['拉丁名'].isin(latinName)]
+        pattern3 = re.compile(r'(.*?) [(]')
+        chineseName = re.findall(pattern3, df.iloc[i]['中文名'])
+        chineseName = referanceDf[referanceDf['鸟种'].isin(chineseName)]
         if chineseName.empty == False:
             chineseName = chineseName['鸟种']
             chineseName = str(chineseName.values[0])
             df.loc[i, '中文名'] = chineseName
         else:
-            print("无法处理的鸟种名，请手动修复：", df.iloc[i]['中文名'])
-            successSign = 0
+            pattern1 = re.compile(r'[(](.*?)[)]')
+            latinName = re.findall(pattern1, df.iloc[i]['中文名'])
+            chineseName = referanceDf[referanceDf['拉丁名'].isin(latinName)]
+            if chineseName.empty == False:
+                chineseName = chineseName['鸟种']
+                chineseName = str(chineseName.values[0])
+                df.loc[i, '中文名'] = chineseName
+            else:
+                print("无法处理的鸟种名，请手动修复：", df.iloc[i]['中文名'])
+                successSign = 0
     if successSign == 1:
         outputName = filename[0:-17] + "_importable.xls"
     else:
