@@ -16,7 +16,6 @@ noteName = 'note.csv'
 referanceDf = pd.read_excel(referance)
 noteDf = pd.read_csv(noteName)
 
-
 def transformer(filename):
     df = pd.read_csv(filename)
     print("处理文件：" + filename)
