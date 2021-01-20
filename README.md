@@ -2,7 +2,7 @@
 
 本项目用于将ebird的观察数据转换为中国观鸟记录中心可以接受的数据格式。
 
-Version 0.3
+Version 0.4
 
 ## 使用
 参考[ 如何将【eBird】的数据同步至【中国观鸟记录中心】](https://mp.weixin.qq.com/s/i17984F6CRl2v_g7fcmu5g)。
@@ -21,6 +21,8 @@ Version 0.3
 
 `referance.xls`: 来自“下载鸟种库”，如出现异常可以从中国观鸟记录中心重新下载，注意要重命名为 `referance.xls` 。
 
+`note.csv` : 特别标注出来的无法通过中文名和 `referance.xls` 来转换的鸟种名。包含两列：eBirdName 和 birdreportcnName，分别对应两边可用的名字。
+
 
 ## TODO
 
@@ -29,7 +31,7 @@ Version 0.3
 - [ ] 编译为便携版本，方便小白使用
 
 ## Changelog
-
-- Version 0.3  Improve name conversion
-- Version 0.2  Multiple files process
-- Version 0.1  Basic function
+- Version 0.4: Add note.csv for outstanding differences
+- Version 0.3: Improve name conversion
+- Version 0.2: Multiple files process
+- Version 0.1: Basic function
