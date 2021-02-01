@@ -23,7 +23,7 @@ def transformer(filename):
     df = df[[df.columns[0], df.columns[1]]]
     # 或：df = df.filter([df.columns[0], df.columns[1]], axis=1)
     df = df.rename(columns={df.columns[0]: '中文名', df.columns[1]: '数量'})
-    # 完善物种名 TODO:分别通过拉丁名和物种名搜索，无法检出的抛出异常
+    # 完善物种名
     successSign = 1
     for i in range(0, len(df)):
         pattern1 = re.compile(r'[(](.*?)[)]')
@@ -56,6 +56,7 @@ def transformer(filename):
 
     df.to_excel(outputName, index=False)
     print("输出文件到：" + outputName)
+    return outputName
 
 
 pattern2 = re.compile(r'(.*?)observations[.]csv')
