@@ -43,10 +43,10 @@ def upload_file():
     <p>步骤：</p>
 
     <ol>
-    <li>从 <a href="https://ebird.org/mychecklists">eBird - 我的记录</a> 下载一个或多个checklist，得到若干名为 <code>xxyyzzww_observations.csv</code> 的文件。</li>
+    <li>从 <a href="https://ebird.org/mychecklists" target="_blank">eBird - 我的记录</a> 下载一个或多个checklist，得到若干名为 <code>xxyyzzww_observations.csv</code> 的文件。</li>
     <li>选中一个csv文件上传，注意不要改变文件名字！</li>
     <li>得到结果为 <code>xxyyzzww_importable.xls</code> 或 <code>xxyyzzww_importable_需要手动修复.xls</code>，后者需要手动修复一些没能转换的数据，结果将自动下载。</li>
-    <li>到<a href="http://www.birdreport.cn/member/index.html">中国观鸟记录中心</a>上传记录。</li>
+    <li>到<a href="http://www.birdreport.cn/member/index.html" target="_blank">中国观鸟记录中心</a>上传记录。</li>
     </ol>
     <form method=post enctype=multipart/form-data>
       <input type=file name=file>

@@ -46,6 +46,7 @@ def transformer(filename):
                 if chineseName.empty == False:
                     chineseName = chineseName['birdreportcnName']
                     chineseName = str(chineseName.values[0])
+                    df.loc[i, '中文名'] = chineseName
                 else:
                     print("无法处理的鸟种名，请手动修复：", df.iloc[i]['中文名'])
                     successSign = 0
