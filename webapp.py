@@ -48,6 +48,9 @@ def upload_file():
     <li>得到结果为 <code>xxyyzzww_importable.xls</code> 或 <code>xxyyzzww_importable_需要手动修复.xls</code>，后者需要手动修复一些没能转换的数据，结果将自动下载。</li>
     <li>到<a href="http://www.birdreport.cn/member/index.html" target="_blank">中国观鸟记录中心</a>上传记录。</li>
     </ol>
+
+    <p>源代码及更多信息请参考<a href="https://github.com/ljk5403/eBird_to_birdreportcn" target="_blank">项目网站</a></p>
+
     <form method=post enctype=multipart/form-data>
       <input type=file name=file>
       <input type=submit value=Upload>
