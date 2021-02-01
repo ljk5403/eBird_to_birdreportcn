@@ -13,7 +13,7 @@ Version 0.4
 2. 下载[本项目](https://github.com/ljk5403/eBird_to_birdreportcn/archive/0.4.zip)，解压得到 `eBird_to_birdreportcn-0.x` 文件夹
 3. 从 eBird 下载一个或多个checklist，将会得到一个名为 `xxyyzzww_observations.csv` 的文件，将其放到 `eBird_to_birdreportcn-0.x` 文件夹下
 4. 运行 `python3 transformer.py`
-5. 得到结果为 `xxyyzzww_importable.xls` 或 `xxyyzzww_importable_需要手动修复.xls`，后者需要手动修复一些没能转换的数据x
+5. 得到结果为 `xxyyzzww_importable.xls` 或 `xxyyzzww_importable_需要手动修复.xls`，后者需要手动修复一些没能转换的数据
 6. 提交 `xls` 格式的记录到中国中国观鸟记录中心
 
 > 对于需要手动修复的情况，可以编辑 `note.csv` 来添加明确的对应法则。 `note.csv` 中的对应法则将在无法直接使用中文名和无法使用拉丁名搜索的时候生效。

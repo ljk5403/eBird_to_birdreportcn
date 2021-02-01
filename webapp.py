@@ -1,7 +1,7 @@
 # /usr/bin/env python3
 
 import os
-from flask import Flask, flash, request, redirect, url_for
+from flask import Flask, flash, request, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 import transformer
 
@@ -37,8 +37,15 @@ def upload_file():
                                     filename=output_name))
     return '''
     <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
+    <title>eBird to birdreportcn</title>
+    <h1>eBird to birdreportcn</h1>
+    <h2>将ebird的观察数据转换为中国观鸟记录中心可以接受的数据格式</h2>
+    <p>步骤：</p>
+    <ol>
+    <li>eBird 下载一个或多个checklist，得到若干名为 <code>xxyyzzww_observations.csv</code> 的文件。</li>
+    <li>选中一个csv文件上传，注意不要改变文件名字！</li>
+    <li>得到结果为 <code>xxyyzzww_importable.xls</code> 或 <code>xxyyzzww_importable_需要手动修复.xls</code>，后者需要手动修复一些没能转换的数据，结果将自动下载。</li>
+    </ol>
     <form method=post enctype=multipart/form-data>
       <input type=file name=file>
       <input type=submit value=Upload>
@@ -49,8 +56,6 @@ def upload_file():
 To remove uploaded files and generated files periodically, use cron:
 30 * * * * rm -f *_observations.csv *_importable.xls *_importable_需要手动修复.xls
 '''
-
-from flask import send_from_directory
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
