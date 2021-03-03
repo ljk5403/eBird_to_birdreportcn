@@ -36,6 +36,9 @@ def transformer(filename):
         else:
             pattern3 = re.compile(r'(.*?) [(]')
             eBirdChineseName = re.findall(pattern3, df.iloc[i]['中文名'])
+            eBirdChineseNameSimplified = re.findall(r'(.*?)[（]', str(eBirdChineseName[0]))
+            if eBirdChineseNameSimplified:
+                eBirdChineseName = eBirdChineseNameSimplified
             chineseName = referanceDf[referanceDf['鸟种'].isin(eBirdChineseName)]
             if chineseName.empty == False:
                 chineseName = chineseName['鸟种']
