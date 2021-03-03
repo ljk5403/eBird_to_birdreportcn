@@ -38,11 +38,11 @@ def upload_file():
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 output_name = transformer.transformer(file.filename)
                 # 此处为本地测试用
-                downloadLink[filename] = (output_name,
-                                          url_for('uploaded_file', filename=output_name))
-                # 注：此处'/eBird_to_birdreportcn'是为了适配服务器端
                 #downloadLink[filename] = (output_name,
-                #                         '/eBird_to_birdreportcn'+url_for('uploaded_file', filename=output_name))
+                #                          url_for('uploaded_file', filename=output_name))
+                # 注：此处'/eBird_to_birdreportcn'是为了适配服务器端
+                downloadLink[filename] = (output_name,
+                                          '/eBird_to_birdreportcn'+url_for('uploaded_file', filename=output_name))
                 #return redirect('/eBird_to_birdreportcn'+url_for('uploaded_file',
                 #                        filename=output_name))
     return render_template('eBird to birdreportcn.html', **{"downloadLink": downloadLink})
