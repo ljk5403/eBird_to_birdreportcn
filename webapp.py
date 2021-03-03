@@ -1,9 +1,12 @@
 # /usr/bin/env python3
-
-import os
-from flask import Flask, flash, request, redirect, url_for, send_from_directory, render_template
-from werkzeug.utils import secure_filename
 import transformer
+from werkzeug.utils import secure_filename
+from flask import Flask, flash, request, redirect, url_for, send_from_directory, render_template
+import os
+
+# 本地测试需设置 localTest=1
+localTest = 0
+
 
 UPLOAD_FOLDER = os.getcwd()
 ALLOWED_EXTENSIONS = {'csv'}
@@ -37,14 +40,13 @@ def upload_file():
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 output_name = transformer.transformer(file.filename)
-                # 此处为本地测试用
-                #downloadLink[filename] = (output_name,
-                #                          url_for('uploaded_file', filename=output_name))
-                # 注：此处'/eBird_to_birdreportcn'是为了适配服务器端
-                downloadLink[filename] = (output_name,
-                                          '/eBird_to_birdreportcn'+url_for('uploaded_file', filename=output_name))
-                #return redirect('/eBird_to_birdreportcn'+url_for('uploaded_file',
-                #                        filename=output_name))
+                if localTest == 1:
+                    downloadLink[filename] = (output_name,
+                                              url_for('uploaded_file', filename=output_name))
+                else:
+                    # 注：此处'/eBird_to_birdreportcn'是为了适配服务器端
+                    downloadLink[filename] = (output_name,
+                                              '/eBird_to_birdreportcn'+url_for('uploaded_file', filename=output_name))
     return render_template('eBird to birdreportcn.html', **{"downloadLink": downloadLink})
     #return render_template('eBird to birdreportcn.html')
 
