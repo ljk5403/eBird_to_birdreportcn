@@ -26,6 +26,7 @@ def transformer(filename):
     # 完善物种名
     successSign = 1
     for i in range(0, len(df)):
+        # 根据拉丁名检索
         pattern1 = re.compile(r'[(](.*?)[)]')
         latinName = re.findall(pattern1, df.iloc[i]['中文名'])
         chineseName = referanceDf[referanceDf['拉丁名'].isin(latinName)]
@@ -34,8 +35,10 @@ def transformer(filename):
             chineseName = str(chineseName.values[0])
             df.loc[i, '中文名'] = chineseName
         else:
+            # 根据中文名检索
             pattern3 = re.compile(r'(.*?) [(]')
             eBirdChineseName = re.findall(pattern3, df.iloc[i]['中文名'])
+            # eBird 提供了亚种附加词，根据括号特征删除亚种附加词
             eBirdChineseNameSimplified = re.findall(r'(.*?)[（]', str(eBirdChineseName[0]))
             if eBirdChineseNameSimplified:
                 eBirdChineseName = eBirdChineseNameSimplified
@@ -45,6 +48,7 @@ def transformer(filename):
                 chineseName = str(chineseName.values[0])
                 df.loc[i, '中文名'] = chineseName
             else:
+                # 特殊名字根据对照表(note.csv)直接检索
                 chineseName = noteDf[noteDf['eBirdName'].isin(eBirdChineseName)]
                 if chineseName.empty == False:
                     chineseName = chineseName['birdreportcnName']
