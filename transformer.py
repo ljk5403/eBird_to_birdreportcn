@@ -20,8 +20,11 @@ def transformer(filename):
     df = pd.read_csv(filename)
     print("处理文件：" + filename)
     # 截取前两列，并重命名使其符合格式要求
-    location = df.iloc[2, 2];
-    print("location:", location);
+    location = df.iloc[0, 2];
+    date = df.iloc[0, 4];
+    startTime = df.iloc[0, 5];
+    duration = df.iloc[0, 6];
+    print(location, date+" "+startTime+" "+duration);
     df = df[[df.columns[0], df.columns[1]]]
     # 或：df = df.filter([df.columns[0], df.columns[1]], axis=1)
     df = df.rename(columns={df.columns[0]: '中文名', df.columns[1]: '数量'})
@@ -66,7 +69,7 @@ def transformer(filename):
 
     df.to_excel(outputName, index=False)
     print("输出文件到：" + outputName)
-    return (outputName, location)
+    return (outputName, location, date+" "+startTime+" "+duration)
 
 
 pattern2 = re.compile(r'(.*?)observations[.]csv')
