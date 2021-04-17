@@ -39,14 +39,14 @@ def upload_file():
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                output_name = transformer.transformer(file.filename)
+                metaData = transformer.transformer(file.filename)
                 if localTest == 1:
-                    downloadLink[filename] = (output_name,
-                                              url_for('uploaded_file', filename=output_name))
+                    downloadLink[filename] = (metaData,
+                                              url_for('uploaded_file', filename=metaData[0]))
                 else:
                     # 注：此处'/eBird_to_birdreportcn'是为了适配服务器端
-                    downloadLink[filename] = (output_name,
-                                              '/eBird_to_birdreportcn'+url_for('uploaded_file', filename=output_name))
+                    downloadLink[filename] = (metaData,
+                                              '/eBird_to_birdreportcn'+url_for('uploaded_file', filename=metaData[0]))
     return render_template('eBird to birdreportcn.html', **{"downloadLink": downloadLink})
     #return render_template('eBird to birdreportcn.html')
 
