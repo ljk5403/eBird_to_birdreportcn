@@ -24,7 +24,8 @@ def transformer(filename):
     date = df.iloc[0, 4];
     startTime = df.iloc[0, 5];
     duration = df.iloc[0, 6];
-    print(location, date+" "+startTime+" "+duration);
+    endTime = getEndTime(startTime, duration);
+    print(location, date+" "+startTime+" ~ "+endTime);
     df = df[[df.columns[0], df.columns[1]]]
     # 或：df = df.filter([df.columns[0], df.columns[1]], axis=1)
     df = df.rename(columns={df.columns[0]: '中文名', df.columns[1]: '数量'})
@@ -69,8 +70,29 @@ def transformer(filename):
 
     df.to_excel(outputName, index=False)
     print("输出文件到：" + outputName)
-    return (outputName, location, date+" "+startTime+" "+duration)
+    return (outputName, location, date+" "+startTime+" ~ "+endTime)
 
+def getEndTime(startTime:str, duration:str):
+    colonIndex = startTime.find(':')
+    startHour = int(startTime[colonIndex-1])
+    startMinute = int(startTime[colonIndex+1:colonIndex+3])
+    if ('下午' in startTime) or ('PM' in startTime):
+        startHour+=12
+    endHour = startHour
+    endMinute = startMinute
+    if ',' in duration:
+        endHour+=int(re.match(r'^\d*', duration).group(0))
+        duration = duration[duration.find(',')+2:-1]
+    endMinute+=int(re.match(r'^\d*', duration).group(0))
+    if endMinute >= 60:
+        endMinute -=60
+        endHour +=1
+    if endMinute < 10:
+        endTime = str(endHour)+":0"+str(endMinute)
+    else:
+        endTime = str(endHour)+":"+str(endMinute)
+    print(endTime)
+    return endTime
 
 pattern2 = re.compile(r'(.*?)observations[.]csv')
 for targetFile in os.listdir():
