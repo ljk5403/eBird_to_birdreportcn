@@ -26,7 +26,7 @@
 
    > Chrome 浏览器可能会直接打开xls文件，请留意地址栏，如结尾为`.xls`请直接右键保存
 
-4. 进入 <a href="http://www.birdrecord.cn/member/index.htm" target="_blank">中国观鸟记录中心</a>，点击“创建观鸟记录 > 定点记”，填写观察点，选择时间，选择“下一步，导入鸟种”，再选择“下一步，上传鸟种数据”，即可。
+4. 进入 <a href="http://www.birdrecord.cn/member/index.html" target="_blank">中国观鸟记录中心</a>，点击“创建观鸟记录 > 定点记”，填写观察点，选择时间，选择“下一步，导入鸟种”，再选择“下一步，上传鸟种数据”，即可。
 
 
 源代码及更多信息请参考<a href="https://github.com/ljk5403/eBird_to_birdreportcn" target="_blank">项目网站</a>。
