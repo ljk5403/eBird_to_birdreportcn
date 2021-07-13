@@ -77,23 +77,29 @@ def getTime(startTime:str, duration:str):
     startMinute = int(startTime[colonIndex+1:colonIndex+3])
     if ('下午' in startTime) or ('PM' in startTime):
         startHour+=12
-    startTime = str(startHour)+":"+str(startMinute)
     endHour = startHour
     endMinute = startMinute
-    if ',' in duration:
-        endHour+=int(re.match(r'^\d*', duration).group(0))
-        duration = duration[duration.find(',')+2:]
-    endMinute+=int(re.match(r'^\d*', duration).group(0))
+    if isinstance(duration,str):
+        if ',' in duration:
+            endHour+=int(re.match(r'^\d*', duration).group(0))
+            duration = duration[duration.find(',')+2:]
+        endMinute+=int(re.match(r'^\d*', duration).group(0))
     if endMinute >= 60:
         endMinute -=60
         endHour +=1
+    if startMinute < 10:
+        startTime = str(startHour)+":0"+str(startMinute)
+    else:
+        startTime = str(startHour)+":"+str(startMinute)
+
     if endMinute < 10:
         endTime = str(endHour)+":0"+str(endMinute)
     else:
         endTime = str(endHour)+":"+str(endMinute)
+    print(startTime, endTime)
     return (startTime, endTime)
 
-pattern2 = re.compile(r'(.*?)observations[.]csv')
+pattern2 = re.compile(r'(.*?)observations[.]csv$')
 for targetFile in os.listdir():
     if pattern2.match(targetFile) is not None:
         transformer(targetFile)

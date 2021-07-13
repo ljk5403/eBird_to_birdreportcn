@@ -34,9 +34,10 @@ Version 0.4
 
 ## TODO
 
-- [ ] 移除依赖 xlwt，换用 openpyxl  
 - [x] 同时处理多份文件  
-- [ ] 编译为便携版本，方便小白使用
+- [ ] 在网页中显示note.csv
+- [ ] 调整网页布局，分为两列
+- [ ] 移除依赖 xlwt，换用 openpyxl  
 
 ## Changelog
 
