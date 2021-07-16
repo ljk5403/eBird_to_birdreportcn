@@ -66,7 +66,6 @@ def transformer(filename):
         outputName = filename[0:-17] + "_importable.xls"
     else:
         outputName = filename[0:-17] + "_importable_需要手动修复.xls"
-
     df.to_excel(outputName, index=False)
     print("输出文件到：" + outputName)
     return (outputName, location, date+" "+startTime+" ~ "+endTime)
