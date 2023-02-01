@@ -9,6 +9,7 @@ by ljk5403
 import os  # 用于读写文件
 import pandas as pd
 import re  # 正则表达式
+import time
 
 referance = 'referance.xls'
 noteName = 'note.csv'
@@ -18,6 +19,7 @@ noteDf = pd.read_csv(noteName)
 
 def transformer(filename):
     df = pd.read_csv(filename)
+    print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))) # 打印当前时间
     print("处理文件：" + filename)
     # 截取前两列，并重命名使其符合格式要求
     location = df.iloc[0, 2];
