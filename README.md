@@ -7,7 +7,7 @@ Version 0.4
 ## 网页版应用
 
 网页版应用可直接使用，并已支持多文件！  
-详情见<a href="https://xebird.proto.cf/eBird_to_birdreportcn/" target="_blank">网页版应用</a>。
+详情见<a href="https://xebird.lijiankun.com/eBird_to_birdreportcn/" target="_blank">网页版应用</a>。
 
 网页版应用的源代码在 `webapp.py`，有个性化修改，不保证移植可用性。
 
