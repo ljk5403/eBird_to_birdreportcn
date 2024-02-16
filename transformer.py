@@ -101,7 +101,8 @@ def getTime(startTime:str, duration:str):
     print(startTime, endTime)
     return (startTime, endTime)
 
-pattern2 = re.compile(r'(.*?)observations[.]csv$')
-for targetFile in os.listdir():
-    if pattern2.match(targetFile) is not None:
-        transformer(targetFile)
+if __name__ == "__main__":
+    pattern2 = re.compile(r'(.*?)observations[.]csv$')
+    for targetFile in os.listdir():
+        if pattern2.match(targetFile) is not None:
+            transformer(targetFile)
