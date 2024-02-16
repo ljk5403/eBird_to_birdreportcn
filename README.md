@@ -2,7 +2,7 @@
 
 本项目用于将ebird的观察数据转换为中国观鸟记录中心可以接受的数据格式。
 
-Version 0.4
+Version 0.4.1
 
 ## 网页版应用
 
@@ -25,9 +25,13 @@ Version 0.4
 
 > 对于需要手动修复的情况，可以编辑 `note.csv` 来添加明确的对应法则。 `note.csv` 中的对应法则将在无法直接使用中文名和无法使用拉丁名搜索的时候生效。
 
-## 注意
+## 鸟种名录
 
-`referance.xls`: 来自“下载鸟种库”，如出现异常可以从中国观鸟记录中心重新下载，注意要重命名为 `referance.xls` 。
+`referance.xls`: 在中国观鸟记录中心中，任意开启一个记录，选择任意一个地点后点击“下一步，导入鸟种”，再点击“下载鸟种库”（如图所示），如出现异常可以从中国观鸟记录中心重新下载，注意要重命名为 `referance.xls` 。
+
+![](how_to_get_referance_xls.png)
+
+
 
 `note.csv` : 特别标注出来的无法通过中文名和 `referance.xls` 来转换的鸟种名。包含两列：eBirdName 和 birdreportcnName，分别对应两边可用的名字。
 
@@ -41,6 +45,7 @@ Version 0.4
 
 ## Changelog
 
+- Version 0.4.1: Update referance.xls to 郑四
 - Version 0.4: Add note.csv for outstanding differences
 - Version 0.3: Improve name conversion
 - Version 0.2: Multiple files process

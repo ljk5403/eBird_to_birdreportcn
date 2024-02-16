@@ -11,7 +11,8 @@ import pandas as pd
 import re  # 正则表达式
 import time
 
-referance = 'referance.xls'
+#referance = 'referance.xls' # before 2024
+referance = 'referance.xlsx'
 noteName = 'note.csv'
 
 referanceDf = pd.read_excel(referance)
@@ -38,7 +39,7 @@ def transformer(filename):
         latinName = re.findall(pattern1, df.iloc[i]['中文名'])
         chineseName = referanceDf[referanceDf['拉丁名'].isin(latinName)]
         if chineseName.empty == False:
-            chineseName = chineseName['鸟种']
+            chineseName = chineseName['中文名']
             chineseName = str(chineseName.values[0])
             df.loc[i, '中文名'] = chineseName
         else:
@@ -49,9 +50,9 @@ def transformer(filename):
             eBirdChineseNameSimplified = re.findall(r'(.*?)[（]', str(eBirdChineseName[0]))
             if eBirdChineseNameSimplified:
                 eBirdChineseName = eBirdChineseNameSimplified
-            chineseName = referanceDf[referanceDf['鸟种'].isin(eBirdChineseName)]
+            chineseName = referanceDf[referanceDf['中文名'].isin(eBirdChineseName)]
             if chineseName.empty == False:
-                chineseName = chineseName['鸟种']
+                chineseName = chineseName['中文名']
                 chineseName = str(chineseName.values[0])
                 df.loc[i, '中文名'] = chineseName
             else:
@@ -62,12 +63,12 @@ def transformer(filename):
                     chineseName = str(chineseName.values[0])
                     df.loc[i, '中文名'] = chineseName
                 else:
-                    print("无法处理的鸟种名，请手动修复：", df.iloc[i]['中文名'])
+                    print("无法处理的中文名，请手动修复：", df.iloc[i]['中文名'])
                     successSign = 0
     if successSign == 1:
-        outputName = filename[0:-17] + "_importable.xls"
+        outputName = filename[0:-17] + "_importable.xlsx"
     else:
-        outputName = filename[0:-17] + "_importable_需要手动修复.xls"
+        outputName = filename[0:-17] + "_importable_需要手动修复.xlsx"
     df.to_excel(outputName, index=False)
     print("输出文件到：" + outputName)
     return (outputName, location, date+" "+startTime+" ~ "+endTime)
