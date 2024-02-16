@@ -16,24 +16,25 @@ Version 0.4.1
 
 步骤：
 
-1. 安装 python3，并安装依赖：`pip3 install pandas xlrd xlwt`
-2. 下载[本项目](https://github.com/ljk5403/eBird_to_birdreportcn/archive/0.4.zip)，解压得到 `eBird_to_birdreportcn-0.x` 文件夹
-3. 从 eBird 下载一个或多个checklist，将会得到一个名为 `xxyyzzww_observations.csv` 的文件，将其放到 `eBird_to_birdreportcn-0.x` 文件夹下
-4. 运行 `python3 transformer.py`
-5. 得到结果为 `xxyyzzww_importable.xls` 或 `xxyyzzww_importable_需要手动修复.xls`，后者需要手动修复一些没能转换的数据
-6. 提交 `xls` 格式的记录到[中国观鸟记录中心](http://www.birdrecord.cn/)
+1. 安装 python3，并安装依赖：`pip3 install pandas openpyxl`
+   - 老版本使用 `xlrd xlwt` ，新版 `pandas` 不再支持。
+2. 下载整个项目（右上角"code"选择喜欢的下载方式，萌新可选 "Download ZIP" 之后解压），也可从 release 中下载，解压得到 `eBird_to_birdreportcn` 文件夹
+3. 从 eBird 下载一个或多个checklist，将会得到一个名为 `xxyyzzww_observations.csv` 的文件，将其放到 `eBird_to_birdreportcn` 文件夹下
+4. 在 `eBird_to_birdreportcn` 文件夹下运行 `python3 transformer.py`
+5. 得到结果为 `xxyyzzww_importable.xlsx` 或 `xxyyzzww_importable_需要手动修复.xlsx`，后者需要手动修复一些没能转换的数据
+6. 提交 `xlsx` 格式的记录到[中国观鸟记录中心](http://www.birdrecord.cn/)
 
 > 对于需要手动修复的情况，可以编辑 `note.csv` 来添加明确的对应法则。 `note.csv` 中的对应法则将在无法直接使用中文名和无法使用拉丁名搜索的时候生效。
 
 ## 鸟种名录
 
-`referance.xls`: 在中国观鸟记录中心中，任意开启一个记录，选择任意一个地点后点击“下一步，导入鸟种”，再点击“下载鸟种库”（如图所示），如出现异常可以从中国观鸟记录中心重新下载，注意要重命名为 `referance.xls` 。
+`referance.xlsx`: 在中国观鸟记录中心中，任意开启一个记录，选择任意一个地点后点击“下一步，导入鸟种”，再点击“下载鸟种库”（如图所示），如出现异常可以从中国观鸟记录中心重新下载，注意要重命名为 `referance.xlsx` 。
 
 ![](how_to_get_referance_xls.png)
 
 
 
-`note.csv` : 特别标注出来的无法通过中文名和 `referance.xls` 来转换的鸟种名。包含两列：eBirdName 和 birdreportcnName，分别对应两边可用的名字。
+`note.csv` : 特别标注出来的无法通过中文名和 `referance.xlsx` 来转换的鸟种名。包含两列：eBirdName 和 birdreportcnName，分别对应两边可用的名字。
 
 
 ## TODO
@@ -41,7 +42,7 @@ Version 0.4.1
 - [x] 同时处理多份文件  
 - [ ] 在网页中显示note.csv
 - [ ] 调整网页布局，分为两列
-- [ ] 移除依赖 xlwt，换用 openpyxl  
+- [x] 移除依赖 xlwt，换用 openpyxl  
 
 ## Changelog
 
