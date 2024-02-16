@@ -55,7 +55,7 @@ def upload_file():
 To remove uploaded files and generated files periodically, use cron:
 30 * * * * rm -f *_observations.csv *_importable.xls *_importable_需要手动修复.xls
 or use
-30 * * * * cd /var/www/eBird_to_birdreportcn; mv *_observations.csv *_importable.xls *_importable_需要手动修复.xls keg/
+30 * * * * cd /var/www/eBird_to_birdreportcn; mv *_observations.csv *_importable.xlsx *_importable_需要手动修复.xlsx keg/
 '''
 
 
