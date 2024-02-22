@@ -40,7 +40,7 @@ Version 0.4.1
 ## TODO
 
 - [x] 同时处理多份文件  
-- [ ] 在网页中显示note.csv
+- [x] 在网页中显示note.csv
 - [ ] 调整网页布局，分为两列
 - [x] 移除依赖 xlwt，换用 openpyxl  
 
