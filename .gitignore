@@ -1,8 +1,7 @@
 *.un~
 *observations.csv
 *_importable.xls
-*_importable.xlsx
-*_importable_需要手动修复.xls
+*_importable*
 __pycache__
 test
 keg

@@ -35,9 +35,12 @@ def transformer(filename):
     successSign = 1
     for i in range(0, len(df)):
         # 根据拉丁名检索
-        pattern1 = re.compile(r'[(](.*?)[)]')
-        latinName = re.findall(pattern1, df.iloc[i]['中文名'])
-        chineseName = referanceDf[referanceDf['拉丁名'].isin(latinName)]
+        #Old version: pattern1 = re.compile(r'[(](.*?)[)]')
+        #New version: extract the first two words from the last parenthesis
+        pattern1 = re.compile(r'\(([^)]+)\)') #This pattern matches all text inside parentheses
+        matches = re.findall(pattern1, df.iloc[i]['中文名'])
+        latinName= ' '.join(matches[-1].split()[:2]) # select the last match and split and get first two words
+        chineseName = referanceDf[referanceDf['拉丁名'].isin([latinName])]
         if chineseName.empty == False:
             chineseName = chineseName['中文名']
             chineseName = str(chineseName.values[0])
