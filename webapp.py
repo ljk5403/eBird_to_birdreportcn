@@ -39,14 +39,24 @@ def upload_file():
             if file and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                metaData = transformer.transformer(file.filename)
-                if localTest == 1:
-                    downloadLink[filename] = (metaData,
-                                              url_for('uploaded_file', filename=metaData[0]))
+                try:
+                    # 调用 transformer
+                    metaData = transformer.transformer(file.filename)
+                except Exception as e:
+                    # 打印完整错误到日志
+                    app.logger.exception("Transformer处理失败")
+                    # 返回空的 metaData, 在template/"eBird to birdreportcn.html" 中处理异常提示
+                    metaData=""
+                if metaData:
+                    if localTest == 1: #方便本地测试用，如果本地测试需在文件开始设置为1
+                        downloadLink[filename] = (metaData,
+                                                  url_for('uploaded_file', filename=metaData[0]))
+                    else:
+                        # 注：此处'/eBird_to_birdreportcn'是为了适配服务器端
+                        downloadLink[filename] = (metaData,
+                                                  '/eBird_to_birdreportcn'+url_for('uploaded_file', filename=metaData[0]))
                 else:
-                    # 注：此处'/eBird_to_birdreportcn'是为了适配服务器端
-                    downloadLink[filename] = (metaData,
-                                              '/eBird_to_birdreportcn'+url_for('uploaded_file', filename=metaData[0]))
+                    downloadLink[filename] = ""
     return render_template('eBird to birdreportcn.html', **{"downloadLink": downloadLink})
     #return render_template('eBird to birdreportcn.html')
 
