@@ -7,6 +7,7 @@ by ljk5403
 '''
 
 import os  # 用于读写文件
+import sys
 import pandas as pd
 import re  # 正则表达式
 import time
@@ -34,22 +35,29 @@ def transformer(filename):
     # 完善物种名
     successSign = 1
     for i in range(0, len(df)):
-        # 根据拉丁名检索
+        # 根据英文括号内的拉丁名（如果开启了sci name）检索
         #Old version: pattern1 = re.compile(r'[(](.*?)[)]')
         #New version: extract the first two words from the last parenthesis
+        rawName = df.iloc[i]['中文名']
         pattern1 = re.compile(r'\(([^)]+)\)') #This pattern matches all text inside parentheses
-        matches = re.findall(pattern1, df.iloc[i]['中文名'])
-        latinName= ' '.join(matches[-1].split()[:2]) # select the last match and split and get first two words
-        chineseName = referanceDf[referanceDf['拉丁名'].isin([latinName])]
+        matches = re.findall(pattern1, rawName)
+        if matches:
+            latinName = ' '.join(matches[-1].split()[:2]) # select the last match and split and get first two words
+            chineseName = referanceDf[referanceDf['拉丁名'].isin([latinName])]
+        else:
+            latinName = None
+            chineseName = referanceDf.iloc[0:0]   # put a empty DataFrame here for the next `if`
+
         if chineseName.empty == False:
             chineseName = chineseName['中文名']
             chineseName = str(chineseName.values[0])
             df.loc[i, '中文名'] = chineseName
         else:
-            # 根据中文名检索
-            pattern3 = re.compile(r'(.*?) [(]')
-            eBirdChineseName = re.findall(pattern3, df.iloc[i]['中文名'])
-            # eBird 提供了亚种附加词，根据括号特征删除亚种附加词
+            # 提取括号前的中文名，根据中文名检索
+            pattern3 = re.compile(r'(.*?)(?:\s*\(|$)')
+            eBirdChineseName = re.findall(pattern3, rawName)
+            eBirdChineseName = eBirdChineseName[:1]
+            # eBird 提供了亚种附加词，根据中文括号特征删除亚种附加词
             eBirdChineseNameSimplified = re.findall(r'(.*?)[（]', str(eBirdChineseName[0]))
             if eBirdChineseNameSimplified:
                 eBirdChineseName = eBirdChineseNameSimplified
@@ -66,7 +74,7 @@ def transformer(filename):
                     chineseName = str(chineseName.values[0])
                     df.loc[i, '中文名'] = chineseName
                 else:
-                    print("无法处理的中文名，请手动修复：", df.iloc[i]['中文名'])
+                    print("无法处理的中文名，请手动修复：", rawName)
                     successSign = 0
     if successSign == 1:
         outputName = filename[0:-17] + "_importable.xlsx"
@@ -105,7 +113,24 @@ def getTime(startTime:str, duration:str):
     return (startTime, endTime)
 
 if __name__ == "__main__":
+    # --- 如果用户提供了文件名参数 ---
+    if len(sys.argv) > 1:
+        for targetFile in sys.argv[1:]:
+            if os.path.isfile(targetFile):
+                transformer(targetFile)
+            else:
+                print(f"Error: File '{targetFile}' not found in current directory.")
+    else:
+        # --- 否则，批量处理所有当前文件夹下的*observations.csv数据 ---
+        for targetFile in os.listdir():
+            pattern2 = re.compile(r'(.*?)observations[.]csv$')
+            if pattern2.match(targetFile) is not None:
+                transformer(targetFile)
+
+''' Old main function
+if __name__ == "__main__":
     pattern2 = re.compile(r'(.*?)observations[.]csv$')
     for targetFile in os.listdir():
         if pattern2.match(targetFile) is not None:
             transformer(targetFile)
+'''
