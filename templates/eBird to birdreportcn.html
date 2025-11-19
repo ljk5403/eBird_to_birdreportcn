@@ -974,7 +974,7 @@ html {
     }
 
     #write>h1:first-child {
-      margin-top: 2.75rem;
+      margin-top: 1rem;
     }
 
     #write>h2:first-child {
@@ -991,22 +991,22 @@ html {
 
     h1 {
       font-weight: normal;
-      line-height: 4rem;
+      line-height: 2rem;
       margin: 0 0 1.75rem;
-      padding: 20px 30px;
+      padding: 10px 10px;
       text-align: center;
       text-transform: uppercase;
-      margin-top: 4rem;
+      margin-top: 2rem;
     }
 
     h2 {
       font-weight: normal;
-      line-height: 3rem;
-      margin: 0 0 1.9375rem;
-      padding: 0 30px;
+      line-height: 2rem;
+      margin: 0 0 1rem;
+      padding: 0 10px;
       text-align: center;
       text-transform: uppercase;
-      margin-top: 3rem
+      margin-top: 1rem
     }
 
     h3 {
@@ -1370,11 +1370,16 @@ html {
           {% endfor %}
         </form>
       </center>
-      <p><span>相关项目: 给 eBird 加上IOC中文名</span><a class="XqQF9c" href="https://greasyfork.org/en/scripts/495909-ebird-add-chinese-name-near-scientific-name" target="_blank"><span>https://xebird.lijiankun.com/eBird_to_birdreportcn/</span></a></p>
+      <p><span>相关项目：</span>
+      <a class="XqQF9c" href="https://dongzhidao.lijiankun.com/" target="_blank" style="color: #35a152;"><span>鸫知道：快速检索鸟名并跳转 eBird/Merlin （支持Android/iOS app）</span></a>
+      <span> | </span>
+      <a class="XqQF9c" href="https://greasyfork.org/en/scripts/495909-ebird-add-chinese-name-near-scientific-name" target="_blank"><span>给 eBird 加上IOC中文名</span></a>
+      </p>
+
       <p><h3>使用方法：</h3></p>
       <ol start=''>
         <li>
-          <p><span>务必注意eBird一定要到 "Preferences" 中将 "Species Name Display" 修改为 "Both", 或者 "Common name translated to" 选择 "Chinese(SIM)"。这是因为本项目基于拉丁名或者中文名匹配转换规则。
+          <p><span>eBird一定要到 "Preferences" 中将 "Species Name Display" 修改为 "Both"，并选择 "Common name translated to" 选择 "Chinese(SIM)", 可能会降低匹配成功率。这是因为本项目基于拉丁名或者中文名匹配转换规则。
           </span></p>
         </li>
         <li>
