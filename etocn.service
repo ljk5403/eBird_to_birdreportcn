@@ -1,1 +1,27 @@
-/etc/systemd/system/etocn.service
+[Unit] # This should be ln to /etc/systemd/system/
+Description=Gunicorn instance to serve etocn webapp
+After=network.target
+
+[Service]
+# 运行服务的用户，建议创建一个普通用户而非 root
+User=www-data
+Group=www-data
+
+# 项目根目录
+WorkingDirectory=/var/www/etocn
+
+# 环境变量：确保 Python 能找到虚拟环境里的库
+Environment="PATH=/var/www/etocn/venv/bin"
+
+# 启动命令：
+# -w 4: 启动 4 个工作进程
+# -k gevent: 使用 gevent 协程模式（匹配你的 monkey.patch_all）
+# -b 127.0.0.1:8041: 绑定地址和端口
+# webapp:app: 指向 webapp.py 文件中的 app 对象
+ExecStart=/var/www/etocn/venv/bin/gunicorn --workers 4 --worker-class gevent --bind 127.0.0.1:8041 webapp:app
+
+# 故障重启
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
