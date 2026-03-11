@@ -1,6 +1,7 @@
-[Unit] # This should be ln to /etc/systemd/system/
+[Unit]
 Description=Gunicorn instance to serve etocn webapp
 After=network.target
+# This should be ln to /etc/systemd/system/
 
 [Service]
 # 运行服务的用户，建议创建一个普通用户而非 root
